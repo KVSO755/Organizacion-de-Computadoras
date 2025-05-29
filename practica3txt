@@ -1,0 +1,187 @@
+section.data  
+num1 db 60    ; Primera variable (entre 1 y 3)  
+num2 db 5     ; Segunda variable (entre 1 y 3)  
+result db 0   ; Espacio para almacenar el resultado convertido a ASCII  
+
+section.text  
+global_start  
+
+_start:  
+    mov al, [num1]    ; Cargar num1 en AL  
+    add al, [num2]     ; Sumar num2 a AL
+
+    mov [result], al   ; Guardar el carácter ASCII en 'result'  
+
+    ; Imprimir el número (un solo dígito)  
+    mov eax, 4         ; syscall: sys_write  
+    mov ebx, 1         ; file descriptor: stdout  
+    mov ecx, result    ; Dirección del resultado  
+    mov edx, 1         ; Longitud del resultado  
+    int 0x80           ; Llamada al sistema  
+
+    ; Salir del programa  
+    mov eax, 1         ; syscall: sys_exit  
+    xor ebx, ebx       ; Código de salida 0  
+    int 0x80           ; Llamada al sistema  
+
+; Segundo programa (parecido al primero pero con num2=1)
+section.data  
+num1 db 60    ; Primera variable (entre 1 y 3)  
+num2 db 1     ; Segunda variable (entre 1 y 3)  
+result db 0   ; Espacio para almacenar el resultado convertido a ASCII  
+
+section.text  
+global_start  
+
+_start:  
+    mov al, [num1]    ; Cargar num1 en AL  
+    add al, [num2]     ; Sumar num2 a AL
+
+    mov [result], al   ; Guardar el carácter ASCII en 'result'  
+
+    ; Imprimir el número (un solo dígito)  
+    mov eax, 4         ; syscall: sys_write  
+    mov ebx, 1         ; file descriptor: stdout  
+    mov ecx, result    ; Dirección del resultado  
+    mov edx, 1         ; Longitud del resultado  
+    int 0x80           ; Llamada al sistema  
+
+    ; Salir del programa  
+    mov eax, 1         ; syscall: sys_exit  
+    xor ebx, ebx       ; Código de salida 0  
+    int 0x80           ; Llamada al sistema section .data
+    num1 db 130
+    num2 db 7
+    result db 0
+
+    
+    section .data  
+    num1 db 60   ; Primera variable (entre 1 y 3) - Nota: 60 no está entre 1-3
+    num2 db 3    ; Segunda variable (entre 1 y 3)  
+    result db 0   ; Espacio para almacenar el resultado convertido a ASCII  
+
+section .text  
+    global _start  ; Corrección: Falta el guión bajo en global_start
+
+_start:  
+    mov al, [num1]   ; Cargar num1 en AL  
+    add al, [num2]   ; Sumar num2 a AL
+
+    ; Fragmento de texto corrupto (STDIN Input fo Output:)
+    ; Esto no es código válido en ensamblador
+    
+    mov [result], al  ; Guardar el carácter ASCII en 'result'  
+
+    ; Imprimir el número (un solo dígito)  
+    mov eax, 4        ; syscall: sys_write  
+    mov ebx, 1        ; file descriptor: stdout  
+    mov ecx, result   ; Dirección del resultado  
+    mov edx, 1        ; Corrección: Debería ser EDX para la longitud, no EBX
+    int 0x80          ; Llamada al sistema  
+
+    ; Salir del programa  
+    mov eax, 1        ; syscall: sys_exit  
+    xor ebx, ebx      ; Código de salida 0  
+    int 0x80          ; Llamada al sistema  
+
+; Segundo programa (con errores similares)
+section .data  
+    num1 db 60   ; Primera variable (entre 1 y 3)  
+    num2 db 35   ; Segunda variable (entre 1 y 3) - Nota: 35 no está entre 1-3
+    result db 0   ; Espacio para almacenar el resultado convertido a ASCII  
+
+section .text  
+    global _start  ; Corrección: Falta el guión bajo
+
+_start:  
+    mov al, [num1]   ; Cargar num1 en AL  
+    add al, [num2]   ; Sumar num2 a AL
+
+    ; Fragmento de texto corrupto nuevamente
+    
+    mov [result], al  ; Guardar el resultado  
+
+    ; Imprimir el número  
+    mov eax, 4        ; syscall: sys_write  
+    mov ebx, 1        ; file descriptor: stdout  
+    mov ecx, result   ; Dirección del resultado  
+    mov edx, 1        ; Corrección: EDX para la longitud
+    int 0x80          ; Llamada al sistema  
+
+    ; Salir del programa  
+    mov eax, 1        ; syscall: sys_exit  
+    xor ebx, ebx      ; Código de salida 0  
+    int 0x80          ; Llamada al sistema  section .text
+
+
+section .data
+    num1 db 45    ; Primera variable (el comentario dice "entre 1 y 3" pero el valor es 45)
+    num2 db 2     ; Segunda variable
+    result db 0   ; Espacio para almacenar el resultado
+
+section .text
+    global _start  ; Corrección: Se necesita guión bajo después de global
+
+_start:
+    mov al, [num1]    ; Cargar num1 en AL
+    sub al, [num2]    ; Restar num2 de AL
+
+    mov [result], al   ; Guardar el resultado (no convertido a ASCII)
+
+    ; Imprimir el número (con error en los registros)
+    mov eax, 4        ; syscall: sys_write
+    mov ebx, 1        ; file descriptor: stdout
+    mov ecx, result   ; Dirección del resultado
+    mov edx, 1        ; Corrección: Debe ser EDX para la longitud, no EBX
+    int 0x80          ; Llamada al sistema
+
+    ; Salir del programa (hay un error tipográfico en "Solir")
+    mov eax, 1        ; syscall: sys_exit
+    xor ebx, ebx      ; Código de salida 0
+    int 0x80          ; Llamada al sistema
+
+; Segundo programa idéntico (con los mismos errores)
+section .data
+    num1 db 45    ; Mismos valores que antes
+    num2 db 2     
+    result db 0   
+
+section .text
+    global _start  ; Corrección necesaria aquí también
+
+_start:
+    mov al, [num1]    
+    sub al, [num2]    
+
+    mov [result], al   
+
+    ; Imprimir el número
+    mov eax, 4        
+    mov ebx, 1        
+    mov ecx, result   
+    mov edx, 1        ; Corrección: EDX para longitud
+    int 0x80          
+
+    ; Salir del programa
+    mov eax, 1        
+    xor ebx, ebx      
+    int 0x80          
+    
+    global _start
+    
+_start:
+    mov al, [num1]
+    sub al, [num2]
+
+    mov [result],al
+
+
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, result
+    mov edx, 1
+    int 0x80
+
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80 

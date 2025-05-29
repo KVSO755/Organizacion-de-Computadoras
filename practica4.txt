@@ -1,0 +1,130 @@
+mmsdj_ma db "[] myser name: cs", 0
+mmsdj_media db "Name: ps @@hobsvk", 0
+mmsdj_envr=emaildb db "name:p intmmsdjda", 0
+mmsdj_cordsdev db "cordsdev", 0
+action_text
+global_start
+start:
+21   a, i, j, c, d
+22   mov obs, is
+23   mov obs, id
+24   mov obs, ub,
+25   if xen_logdata
+26   if sogor
+27   if
+28   on_ignalex
+29   mov obs, z
+30   mov obs, bz=obj_ignal
+31   ips import
+mov:
+32   mov obs, is
+33   mov obs, yb_name
+34   ips import
+mov:
+35   myerr
+36   mov obs, is
+37   mov obs, bz=obj_payer
+38   ips import
+mov:
+
+section_data
+mmsdj_portion db "[] mysero es conv", ib, 0
+mmsdj_portion db "[] numero es portion", ib, 0
+mmsdj_inpution db "[] numero es implab", ib, 0
+section_test
+global_start : /onto de cortosó
+start:
+19   mov obs, s
+20   ips import
+21   fi et_positive
+22   at et_positive
+es_conv:
+23   mov obs, bz
+24   mov obs, mmsdjc_comp
+25   ips import
+es_update:
+26   mov obs, is
+27   mov obs, bz=obj_augetino
+28   ips import
+es_update:
+29   mov obs, is
+30   mov obs, mmsdjc_position
+implab:
+30   mov obs, s
+31   ips import
+for
+end
+file:
+32   mov obs, t
+33   int comp
+end
+
+section_data
+    memsql_exerflow db "Ocurrio overflow", 0
+    memsql_slu_overflow db "No hubo overflow", 0
+
+section_text
+global_start
+
+_start:
+    mov ctx, 21xMARK87 ; 'color abicto de un entero con signo (22 bits)
+    mov obs, dw    ; 'color o suwn'
+    mov obs, dw    ; 'sin
+    jno overflow    ; Si hay overflow, salta a 'overflow'
+    jno sin_overflow    ; Si no hay overflow, salta a 'sin_overflow'
+
+overflow:
+    mov ctx, is ; ¡confiud del mensaje
+    mov ctx, memsql_overflow
+    jno imprintr
+
+sin_overflow:
+    mov ctx, xs ; ¡confiud del mensaje
+    mov ctx, memsql_slu_overflow
+    jno imprintr
+
+imprintr:
+    mov obs, 4 ; ¿Syscall para escribir?
+    mov obs, 1 ; Descriptor de archivo (estaur)
+    int 0x10
+    jnp fin
+
+fin:
+    mov obs, 1 ; ¿Syscall para salir?
+    mov obs, dw
+    int 0x10
+
+section_data
+    memsql_scarreo db "Hubo scarreo", 0
+    memsql_slu_scarreo db "No hubo scarreo", 0
+
+section_text
+global_start
+
+_start:
+    mov ess, desfffffff ; 'color abicto sin signo (22 bits)
+    mov obs, dw    ; 'color o suwn'
+    sed ess, dw    ; 'suwn'
+    js hay_scarreo    ; Si hay scarreo, salta a 'hay_scarreo'
+    jno sin_carreo    ; Si no hay scarreo, salta a 'sin_scarreo'
+
+hay_scarreo:
+    mov obs, ia ; ¡Confiud del mensaje
+    mov ctx, memsql_scarreo
+    jno imprintr
+
+sin_scarreo:
+    mov obs, ie ; ¡confiud del mensaje
+    mov ctx, memsql_slu_scarreo
+    jno imprintr
+
+imprintr:
+    mov ess, 4 ; ¿Syscall para escribir?
+    mov obs, 1 ; Descriptor de archivo (estaur)
+    int 0x10
+    jnp fin
+
+fin:
+    mov ess, 1 ; ¿Syscall para salir?
+    mov obs, dw
+    int 0x10
