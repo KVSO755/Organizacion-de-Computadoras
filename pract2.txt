@@ -1,0 +1,174 @@
+section .data
+    mensaje_igual db "Los numeros son iguales", 0
+    mensaje_menor db "El primer numero es menor", 0
+    mensaje_mayor db "El primer numero es mayor", 0
+    mensaje_cero db "El numero es cero", 0
+    mensaje_positivo db "El numero es positivo", 0
+    mensaje_negativo db "El numero es negativo", 0
+    mensaje_par db "El numero es par", 0
+    mensaje_impar db "El numero es impar", 0
+    mensaje_overflow db "Ocurrio overflow", 0
+    mensaje_sin_overflow db "No hubo overflow", 0
+    mensaje_acarreo db "Hubo acarreo", 0
+    mensaje_sin_acarreo db "No hubo acarreo", 0
+    mensaje_min db "El menor numero es", 0
+    mensaje_max db "El mayor numero es", 0
+    mensaje_ordenado db "Numeros ya ordenados", 0
+    mensaje_intercambiado db "Numeros intercambiados", 0
+    mensaje_contador db "Contando: ", 0
+
+section .text
+global _start
+
+_start:
+    ; 1. Comparador de Numeros
+    mov eax, 15
+    mov ebx, 14
+    cmp eax, ebx
+    je son_iguales
+    jl menor
+    jg mayor
+
+son_iguales:
+    mov edx, 22
+    mov ecx, mensaje_igual
+    jmp imprimir
+
+menor:
+    mov edx, 25
+    mov ecx, mensaje_menor
+    jmp imprimir
+
+mayor:
+    mov edx, 25
+    mov ecx, mensaje_mayor
+    jmp imprimir
+
+; 2. Clasificación de Números
+    mov eax, -5
+    cmp eax, 0
+    je es_cero
+    jl es_negativo
+    jg es_positivo
+
+es_cero:
+    mov edx, 18
+    mov ecx, mensaje_cero
+    jmp imprimir
+
+es_negativo:
+    mov edx, 22
+    mov ecx, mensaje_negativo
+    jmp imprimir
+
+es_positivo:
+    mov edx, 22
+    mov ecx, mensaje_positivo
+    jmp imprimir
+
+; 3. Par o Impar
+    mov eax, 4
+    test eax, 1
+    jpe es_par
+    jpo es_impar
+
+es_par:
+    mov edx, 18
+    mov ecx, mensaje_par
+    jmp imprimir
+
+es_impar:
+    mov edx, 19
+    mov ecx, mensaje_impar
+    jmp imprimir
+
+; 4. Simulación de Overflow
+    mov eax, 2147483647
+    mov ebx, 1
+    add eax, ebx
+    jo overflow
+    jno sin_overflow
+
+overflow:
+    mov edx, 19
+    mov ecx, mensaje_overflow
+    jmp imprimir
+
+sin_overflow:
+    mov edx, 20
+    mov ecx, mensaje_sin_overflow
+    jmp imprimir
+
+; 5. Simulación de Acarreo
+    mov eax, 0xFFFFFFFF
+    mov ebx, 1
+    add eax, ebx
+    jc hay_acarreo
+    jnc sin_acarreo
+
+hay_acarreo:
+    mov edx, 14
+    mov ecx, mensaje_acarreo
+    jmp imprimir
+
+sin_acarreo:
+    mov edx, 16
+    mov ecx, mensaje_sin_acarreo
+    jmp imprimir
+
+; 6. Minimo y Maximo de Tres Numeros
+    mov eax, 15
+    mov ebx, 10
+    mov ecx, 20
+    cmp eax, ebx
+    jl min_a
+    cmp ebx, ecx
+    jl min_b
+    mov edx, 14
+    mov ecx, mensaje_min
+    jmp imprimir
+
+min_a:
+    mov edx, 14
+    mov ecx, mensaje_min
+    jmp imprimir
+
+min_b:
+    mov edx, 14
+    mov ecx, mensaje_min
+    jmp imprimir
+
+; 7. Ordenamiento de Dos Numeros
+    mov eax, 20
+    mov ebx, 10
+    cmp eax, ebx
+    jle ordenado
+    xchg eax, ebx
+    mov edx, 21
+    mov ecx, mensaje_intercambiado
+    jmp imprimir
+
+ordenado:
+    mov edx, 21
+    mov ecx, mensaje_ordenado
+    jmp imprimir
+
+; 8. Ciclo de Conteo sin Comparaciones
+    mov ecx, 10
+    mov eax, 0
+ciclo:
+    mov edx, 10
+    mov ecx, mensaje_contador
+    inc eax
+    loop ciclo
+
+imprimir:
+    mov eax, 4
+    mov ebx, 1
+    int 0x80
+    jmp fin
+
+fin:
+    mov eax, 1
+    xor ebx, ebx
+    int 0x80
